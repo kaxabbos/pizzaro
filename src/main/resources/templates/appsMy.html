@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>В процессе готовки</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<body style="background: url(&quot;/img/def/bg.png&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto bg-dark rounded-5">
+                <h2 class="fw-bold">В процессе готовки</h2>
+            </div>
+        </div>
+        <div th:if="${message}" class="row">
+            <div class="col"></div>
+            <div class="col-auto">
+                <div class="alert alert-warning" role="alert">
+                    <strong th:text="${message}"></strong>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="bg-dark rounded-5 p-2">
+            <div th:each="o : ${orderings}" class="row mx-auto" style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.date}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.status.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Цена: <span th:text="${o.price}"></span></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Количество: <span th:text="${o.quantity}"></span></p>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-light" role="button" th:href="'/details/' + ${o.id}">Детали</a>
+                </div>
+                <div th:if="${o.status.name() == 'PROCESSED'}" class="col-auto">
+                    <a class="btn btn-warning" role="button" th:href="'/apps/confirmed/' + ${o.id}">Подтвердить</a>
+                </div>
+                <div th:if="${o.status.name() == 'PROCESSED'}" class="col-auto">
+                    <a class="btn btn-warning" role="button" th:href="'/apps/rejected/' + ${o.id}">Отклонить</a>
+                </div>
+                <div th:if="${o.status.name() == 'PAID'}" class="col-auto">
+                    <a class="btn btn-warning" role="button" th:href="'/apps/delivered/' + ${o.id}">Доставлено</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

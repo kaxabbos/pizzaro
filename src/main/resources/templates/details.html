@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Детали заказа</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<body style="background: url(&quot;/img/def/bg.png&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto bg-dark rounded-5">
+                <h2 class="fw-bold">Детали заказа</h2>
+            </div>
+        </div>
+        <div class="bg-dark rounded-5 p-2">
+            <div class="row mx-auto" style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Название</p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Количество</p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Цена</p>
+                </div>
+            </div>
+            <div th:each="d : ${ordering.details}" class="row mx-auto"
+                 style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex align-items-xl-center">
+                    <p th:text="${d.product.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center">
+                    <p th:text="${d.quantity}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center">
+                    <p th:text="${d.price}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

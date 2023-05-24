@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Добавить</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<body style="background: url(&quot;/img/def/bg.png&quot;) top / cover;">
+    <div th:insert="blocks/nav :: nav"></div>
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto bg-dark rounded-5">
+                    <h2 class="fw-bold">Добавить</h2>
+                </div>
+            </div>
+            <div th:if="${message}" class="row">
+                <div class="col"></div>
+                <div class="col-auto">
+                    <div class="alert alert-warning" role="alert">
+                        <strong th:text="${message}"></strong>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <form action="/products/add" method="post" enctype="multipart/form-data">
+                <div class="row mx-auto" style="/*max-width: 700px;*/margin-bottom: 10px;">
+                    <div class="col-6 mb-3"><input class="form-control" type="text" name="name" placeholder="Название" required></div>
+                    <div class="col-6 mb-3"><input class="form-control" type="number" name="price" min="1" step="1" placeholder="Цена за единицу" required></div>
+                    <div class="col-6 mb-3"><input class="form-control" type="number" name="quantity" min="1" step="1" placeholder="Количество" required></div>
+                    <div class="col-6 mb-3"><input class="form-control" type="file" accept="image/*" name="photo" required></div>
+                    <div class="col-auto"><button class="btn btn-light" type="submit">Добавить</button></div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

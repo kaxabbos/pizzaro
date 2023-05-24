@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Каталог пиццерии</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<body style="background: url(&quot;/img/def/bg.png&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto bg-dark rounded-5">
+                <h2 class="fw-bold">Каталог пиццерии</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div th:each="p : ${products}" class="col-3">
+                <form class="bg-dark rounded-5 p-2" th:action="'/details/add/' + ${p.id}" method="post">
+                    <div class="row mb-3">
+                        <div class="col-12"><img class="w-100 rounded-5 shadow" th:src="'/img/' + ${p.photo}"></div>
+                        <div class="col-12"><p th:text="${p.name}"></div>
+                        <div class="col-12"><p th:text="${'Цена: ' + p.price}"></div>
+                        <div class="col-12"><p th:text="${'Количество: ' + p.quantity}"></div>
+                        <div th:if="${role == 'CLIENT'}" class="col-12 w-100 mb-2">
+                            <input class="form-control" type="number" name="quantity" min="1" step="1" required
+                                   placeholder="Введите количество"></div>
+                        <div th:if="${role == 'CLIENT'}" class="col-12">
+                            <button class="btn btn-warning w-100 mb-2" type="submit">Добавить</button>
+                        </div>
+                        <div th:if="${role == 'MANAGER'}" class="col-12">
+                            <a class="btn btn-info w-100 mb-2" role="button" th:href="'/products/edit/' + ${p.id}">Обновить</a>
+                        </div>
+                        <div th:if="${role == 'MANAGER'}" class="col-12">
+                            <a class="btn btn-danger w-100 mb-2" role="button" th:href="'/products/delete/' + ${p.id}">Удалить</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<nav th:fragment="nav" class="navbar navbar-dark navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav"
+     style="background: rgb(39,38,46);">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <span>Pizzaro</span>
+        </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/apps">Заказы клиентов</a></li>
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/apps/my">В процессе готовки</a></li>
+                <li th:if="${role == 'CLIENT'}" class="nav-item"><a class="nav-link" href="/orderings">История заказов</a></li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item"><a class="nav-link" href="/stats">Контроль деятельности сотрудников пиццерии</a></li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item"><a class="nav-link" href="/users">Пользователи</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Каталог пиццерии</a></li>
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/products/add">Добавить</a></li>
+            </ul>
+            <a class="btn btn-warning shadow" role="button" href="/logout">Выход</a>
+        </div>
+    </div>
+</nav>

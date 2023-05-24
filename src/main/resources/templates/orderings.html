@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>История заказов</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<body style="background: url(&quot;/img/def/bg.png&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center d-xl-flex mx-auto justify-content-xl-center align-items-xl-center bg-dark rounded-5">
+                <h2 class="fw-bold">История заказов</h2>
+            </div>
+        </div>
+        <div th:if="${user.details.size() > 0}" class="bg-dark rounded-5 p-2">
+            <div class="row mx-auto"
+                 style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Название</p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Количество</p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead">Цена</p>
+                </div>
+                <div class="col-auto"><a class="btn btn-danger invisible" role="button">Убрать</a></div>
+            </div>
+            <div th:each="d : ${user.details}" class="row mx-auto" style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex align-items-xl-center">
+                    <p th:text="${d.product.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center">
+                    <p th:text="${d.quantity}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center">
+                    <p th:text="${d.price}"></p>
+                </div>
+                <div class="col-auto"><a class="btn btn-dark" role="button"
+                                         th:href="'/details/delete/' + ${d.id}">Убрать</a></div>
+            </div>
+            <div class="row mx-auto"
+                 style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col">
+                    <form action="/orderings/add" method="post">
+                        <div class="row">
+                            <div class="col"><input class="form-control" type="date" name="date" required></div>
+                            <div class="col-3"><input class="form-control" type="text" name="discount" placeholder="Введите промо-код))"></div>
+                            <div class="col-auto">
+                                <button class="btn btn-warning" type="submit">Заказать</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="bg-dark rounded-5 p-2">
+            <div th:each="o : ${orderings}" class="row mx-auto" style="/*max-width: 700px;*/margin-bottom: 10px;">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.date}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.status.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Цена: <span th:text="${o.price}"></span></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Количество: <span th:text="${o.quantity}"></span></p>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-light" role="button" th:href="'/details/' + ${o.id}">Детали</a>
+                </div>
+                <div th:if="${o.status.name() == 'CONFIRMED'}" class="col-auto">
+                    <a class="btn btn-warning" role="button" th:href="'/orderings/paid/' + ${o.id}">&nbsp;Оплатить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>
